@@ -8,6 +8,7 @@ const initialState = {
             current_price: {
                 usd: null,
             },
+            price_change_percentage_24h: null,
         },
         coingecko_rank: null,
         image: {
@@ -16,7 +17,7 @@ const initialState = {
         
     },
     isFetching: false,
-    error: ''
+    error: {}
 };
 
 export const tokenReducer = (state = initialState, action) => {

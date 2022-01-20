@@ -11,8 +11,9 @@ const Token = (props) => {
     //     dispatch(getToken());
     // }, []);
 
-    if (error){
-        return <h2> We got an error: {error}</h2>
+    if (Object.keys(error).length){
+        // console.log(error);
+        return <p> We got an error: {JSON.stringify(error)}</p>
     }
 
     if (isFetching){
@@ -48,14 +49,13 @@ const Token = (props) => {
                 <button onClick={handleBitcoinClick}>Bitcoin Info</button>
                 <button onClick={handleEthClick}>Ethereum Info</button>
             </div>
-            <div>
+            <div className="formWrapper">
                 <form onSubmit={handleSubmit}>
                     
-                    <div>
-                        <label>Token Name</label>
-                        <input onChange={handleChange} type="text" name="name" value={token.name} />
+                    <div className="formField">
+                        <input onChange={handleChange} placeholder="Token Name" type="text" name="name" value={token.name} />
+                        <button type="submit">Find Token</button>
                     </div>
-                    <button type="submit">Find Token</button>
                 </form>
             </div>
         </div>
