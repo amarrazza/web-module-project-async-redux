@@ -35,7 +35,8 @@ const Token = (props) => {
         })
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault();
         dispatch(getToken(token.name));
     }
 
