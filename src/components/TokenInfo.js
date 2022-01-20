@@ -11,7 +11,7 @@ const TokenInfo = (props) => {
             {token.symbol && <img src={token.image.small} alt="token icon"/>}
             <p> </p>
             {token.symbol && <p>Ticker: {token.symbol}</p>}
-            {token.symbol && <p>Current Price: {token.market_data.current_price.usd} &nbsp; {token.market_data.price_change_percentage_24h}%</p>}
+            {token.symbol && <p>Current Price: ${token.market_data.current_price.usd} &nbsp; {token.market_data.price_change_percentage_24h}%</p>}
             {token.symbol && <p>Market Cap Rank: {token.coingecko_rank}</p>}
         </div>
     )

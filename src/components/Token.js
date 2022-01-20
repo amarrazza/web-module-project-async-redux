@@ -37,7 +37,7 @@ const Token = (props) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch(getToken(token.name));
+        dispatch(getToken(token.name.toLowerCase()));
     }
 
     return(
