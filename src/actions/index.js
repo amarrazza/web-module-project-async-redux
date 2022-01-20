@@ -5,9 +5,33 @@ export const FETCH_FAIL = "FETCH_FAIL";
 export const FETCH_SUCCESS = "FETCH_SUCCESS";
 
 
-export const getToken = () => (dispatch) => {
+export const getBitcoin = () => (dispatch) => {
     dispatch(fetchStart());
-    axios.get("https://api.coingecko.com/api/v3/coins/bitcsdsoin")
+    axios.get("https://api.coingecko.com/api/v3/coins/bitcoin")
+        .then(resp => {
+            console.log(resp.data);
+            dispatch(fetchSuccess(resp.data));
+        }).catch(err=> {
+            dispatch(fetchFail(err));
+        })
+    
+}
+
+export const getEth = () => (dispatch) => {
+    dispatch(fetchStart());
+    axios.get("https://api.coingecko.com/api/v3/coins/ethereum")
+        .then(resp => {
+            console.log(resp.data);
+            dispatch(fetchSuccess(resp.data));
+        }).catch(err=> {
+            dispatch(fetchFail(err));
+        })
+    
+}
+
+export const getToken = (token) => (dispatch) => {
+    dispatch(fetchStart());
+    axios.get(`https://api.coingecko.com/api/v3/coins/${token}`)
         .then(resp => {
             console.log(resp.data);
             dispatch(fetchSuccess(resp.data));

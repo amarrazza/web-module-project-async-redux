@@ -1,9 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from 'react-redux';
-import { getToken } from "../actions";
+import { getBitcoin, getEth, getToken } from "../actions";
+import TokenInfo from "./TokenInfo";
 
 const Token = (props) => {
-    const { error, isFetching, dispatch, token } = props;
+    const { error, isFetching, dispatch } = props;
+    const [token, setToken] = useState({name: ""})
     
     // useEffect(() => {
     //     dispatch(getToken());
@@ -17,27 +19,51 @@ const Token = (props) => {
         return <h2> Fetching token...</h2>
     }
 
-    const handleClick = () => {
-        dispatch(getToken())
+    const handleBitcoinClick = () => {
+        dispatch(getBitcoin());
+    }
+
+    const handleEthClick = () => {
+        dispatch(getEth());
+    }
+
+    const handleChange = (e) => {
+        setToken({
+            ...token,
+            [e.target.name]: e.target.value,
+        })
+    }
+
+    const handleSubmit = () => {
+        dispatch(getToken(token.name));
     }
 
     return(
-        <div>
-            <h3>Token</h3>
-            <p>{token.id.toUpperCase()}</p>
-            {token.symbol && <img src={token.image.small} alt="token icon"/>}
-            <p> </p>
-            {token.symbol && <p>Ticker: {token.symbol}</p>}
-            {token.symbol && <p>Current Price: {token.market_data.current_price.usd}</p>}
-            {token.symbol && <p>Market Cap Rank: {token.coingecko_rank}</p>}
-            <button onClick={handleClick}>Bitcoin Price</button>
+        <div className="container">
+            <h3>Up Only</h3>
+            <div className="tokenWrapper">
+                <TokenInfo />
+            </div>
+            <div className="majorButtons">
+                <button onClick={handleBitcoinClick}>Bitcoin Info</button>
+                <button onClick={handleEthClick}>Ethereum Info</button>
+            </div>
+            <div>
+                <form onSubmit={handleSubmit}>
+                    
+                    <div>
+                        <label>Token Name</label>
+                        <input onChange={handleChange} type="text" name="name" value={token.name} />
+                    </div>
+                    <button type="submit">Find Token</button>
+                </form>
+            </div>
         </div>
     )
 }
 
 const mapStateToProps = state => {
     return{
-        token: state.token,
         isFetching: state.isFetching,
         error: state.error
     };
